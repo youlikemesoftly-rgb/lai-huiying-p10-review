@@ -34,6 +34,21 @@
   });
   document.querySelectorAll('.chapter-next').forEach((button) => button.addEventListener('click', () => goTo(current + 1)));
 
+  document.querySelectorAll('.capability-list').forEach((list) => {
+    const items = Array.from(list.querySelectorAll('.capability'));
+    items.forEach((item) => item.addEventListener('click', () => {
+      const shouldOpen = !item.classList.contains('is-open');
+      items.forEach((other) => {
+        other.classList.remove('is-open');
+        other.setAttribute('aria-expanded', 'false');
+      });
+      if (shouldOpen) {
+        item.classList.add('is-open');
+        item.setAttribute('aria-expanded', 'true');
+      }
+    }));
+  });
+
   window.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') goTo(current + 1);
     if (event.key === 'ArrowLeft' || event.key === 'PageUp') goTo(current - 1);
